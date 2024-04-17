@@ -101,6 +101,7 @@ class Nette implements CacheInterface
         if ($this->enabled()) {
             return $this->cache->load($key, $default);
         }
+        return null;
     }
 
     /**
