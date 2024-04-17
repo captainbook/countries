@@ -145,9 +145,9 @@ class Service implements CacheInterface
     /**
      * Wipe clean the entire cache's keys.
      */
-    public function clear()
+    public function clear(): bool
     {
-        $this->manager->clear();
+        return $this->manager->clear();
     }
 
     /**
