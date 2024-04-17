@@ -8,6 +8,7 @@ use DateTimeInterface;
 use PragmaRX\Countries\Package\Services\Cache\Managers\Nette as NetteManager;
 use PragmaRX\Countries\Package\Services\Config;
 use Psr\SimpleCache\CacheInterface;
+use Traversable;
 
 class Service implements CacheInterface
 {
@@ -177,12 +178,12 @@ class Service implements CacheInterface
     /**
      * Deletes multiple cache items in a single operation.
      *
-     * @param $keys
-     * @return bool|void
+     * @param Traversable|array $keys
+     * @return bool
      */
-    public function deleteMultiple($keys)
+    public function deleteMultiple(Traversable|array $keys): bool
     {
-        $this->manager->deleteMultiple($keys);
+        return $this->manager->deleteMultiple($keys);
     }
 
     /**
