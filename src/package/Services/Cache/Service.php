@@ -3,6 +3,8 @@
 namespace PragmaRX\Countries\Package\Services\Cache;
 
 use Closure;
+use DateInterval;
+use DateTimeInterface;
 use PragmaRX\Countries\Package\Services\Cache\Managers\Nette as NetteManager;
 use PragmaRX\Countries\Package\Services\Config;
 use Psr\SimpleCache\CacheInterface;
@@ -120,7 +122,7 @@ class Service implements CacheInterface
      * @param  null  $ttl
      * @return bool
      */
-    public function set($key, $value, $ttl = null)
+    public function set(string $key, mixed $value, DateInterval|int|null $ttl = null): bool
     {
         if ($this->enabled()) {
             return $this->manager->set($key, $value, $ttl);
@@ -135,7 +137,7 @@ class Service implements CacheInterface
      * @param  string  $key
      * @return bool
      */
-    public function delete($key)
+    public function delete(string $key): bool
     {
         $this->manager->delete($key);
     }
@@ -155,7 +157,7 @@ class Service implements CacheInterface
      * @param  null  $default
      * @return array
      */
-    public function getMultiple($keys, $default = null)
+    public function getMultiple($keys, $default = null): array
     {
         return $this->manager->getMultiple($keys, $default);
     }
@@ -167,9 +169,9 @@ class Service implements CacheInterface
      * @param  null  $ttl
      * @return bool
      */
-    public function setMultiple($values, $ttl = null)
+    public function setMultiple($values, $ttl = null): bool
     {
-        return $this->manager->setMultiple($keys, $ttl);
+        return $this->manager->setMultiple($values, $ttl);
     }
 
     /**
@@ -189,7 +191,7 @@ class Service implements CacheInterface
      * @param  string  $key
      * @return bool
      */
-    public function has($key)
+    public function has(string $key): bool
     {
         return $this->manager->has($key);
     }
@@ -198,11 +200,11 @@ class Service implements CacheInterface
      * Get an item from the cache, or store the default value.
      *
      * @param  string  $key
-     * @param  \DateTimeInterface|\DateInterval|float|int  $minutes
+     * @param  DateTimeInterface|DateInterval|float|int  $minutes
      * @param  Closure  $callback
      * @return mixed
      */
-    public function remember($key, $minutes, Closure $callback)
+    public function remember(string $key, DateInterval|DateTimeInterface|float|int $minutes, Closure $callback): mixed
     {
         if (! \is_null($value = $this->manager->get($key))) {
             return $value;
