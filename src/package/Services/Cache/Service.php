@@ -87,7 +87,7 @@ class Service implements CacheInterface
      * @param  null  $default
      * @return mixed|null
      */
-    public function get(string $key, ?mixed $default = null)
+    public function get(string $key, mixed $default = null)
     {
         if ($this->enabled()) {
             return $this->manager->get($key, $default);
