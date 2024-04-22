@@ -127,7 +127,7 @@ class Nette implements CacheInterface
             return $this->cache->save($key, $value, [NetteCache::EXPIRE => $this->makeExpiration($ttl)]);
         }
 
-        return $value;
+        return true;
     }
 
     /**

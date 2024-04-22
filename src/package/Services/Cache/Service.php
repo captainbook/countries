@@ -130,7 +130,7 @@ class Service implements CacheInterface
             return $this->manager->set($key, $value, $ttl);
         }
 
-        return $value;
+        return false;
     }
 
     /**
